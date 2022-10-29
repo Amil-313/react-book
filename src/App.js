@@ -26,7 +26,10 @@ setSearchBooks(event.target.value);
   return (
     <>
 
-      {basket && <Basket itemsBusket={itemsBusket} closeBasket={closeBasket} />}
+      {basket && <Basket 
+      itemsBusket={itemsBusket} 
+      closeBasket={closeBasket} 
+      />}
       <Header 
       openBasket={openBasket}
       searchBooks={searchBooks}
