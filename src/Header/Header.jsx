@@ -18,8 +18,8 @@ function Header({openBasket, searchBooks, searchChange, setSearchBooks}) {
 
                        <nav>
                             <div className="search">
+                                <img src={require("../Img/search.svg").default} alt="search" />
                                 <input onChange={searchChange} value={searchBooks} className="search_input" type="text" />
-                               <img src={require("../Img/search.svg").default} alt="search" />
                                {searchBooks && <img onClick={() => setSearchBooks('')} src={require("../Img/censel.png")} alt="clear" />}
                             </div>
                             <img onClick={openBasket} src={require("../Img/basket.png")} alt="basket" />
