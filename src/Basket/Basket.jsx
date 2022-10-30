@@ -1,7 +1,7 @@
 import React from 'react';
 import './Basket.scss';
 
-function Busket({closeBasket, itemsBusket}) {
+function Busket({closeBasket, itemsBusket, removeBasket}) {
 
     return(
         <>
@@ -20,7 +20,7 @@ function Busket({closeBasket, itemsBusket}) {
                                     <p>{item.name}</p>
                                     <strong>{item.price} руб.</strong>
                                 </div>
-                                <img className='cansel' src= { require("./Image/censel.png")} alt="Censel" />
+                                <img onClick={() => removeBasket(item.id)} className='cansel' src= { require("./Image/censel.png")} alt="Censel" />
                             </div>
 ))}
 
