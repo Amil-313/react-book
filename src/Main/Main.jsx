@@ -2,8 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import './Main.scss';
 import Cardmain from './Cardmain';
+import { ContextApp } from '../App';
 
-function Main(props) {
+
+function Main() {
+
+let {searchBooks} = React.useContext(ContextApp);
+
 let [books, setBooks] = React.useState([])
     
         React.useEffect(() => {
@@ -16,11 +21,11 @@ let [books, setBooks] = React.useState([])
             <div className='main'>
                 <div className="container">
 
-                    <h1>{props.searchBooks ? 'Поиск по запросу: ' + props.searchBooks : 'Все книги'}</h1>
+                    <h1>{searchBooks ? 'Поиск по запросу: ' + searchBooks : 'Все книги'}</h1>
 
                     <div className="container_items">
 
-                        {books.filter((book) => book.name.toLowerCase().includes(props.searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} addBasket={props.addBasket} item = {book} />)}
+                        {books.filter((book) => book.name.toLowerCase().includes(searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} item = {book} />)}
 
                     </div>
                 </div>

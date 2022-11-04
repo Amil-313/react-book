@@ -1,13 +1,22 @@
 import React from "react";
-function Cardmain({item, addBasket}) {
-    
-    let [done, setDone] = React.useState(false);
+import { ContextApp } from "../App";
 
-    let doneProduct = () => {
-        setDone(!done)
+function Cardmain({item, inFavorite = false}) {
+    
+    
+    let {addBasket, addFavorite} = React.useContext(ContextApp);
+    
+    let [doneBusket, setDoneBusket] = React.useState(false);
+    let searchProduct = () => {
         addBasket(item);
+        setDoneBusket(!doneBusket)
     };
 
+    let [doneFavorite, setDoneFavorite] = React.useState(inFavorite);
+    let searchFavorit = () => {
+        addFavorite(item);
+        setDoneFavorite(!doneFavorite);
+    };
 
     return(
         <>
@@ -20,8 +29,8 @@ function Cardmain({item, addBasket}) {
                         <p><i>Цена: </i></p><strong>{item.price} руб.</strong>
                     </div>
                     <div className="card_btn">
-                        <button><img src={ require("../Img/heart.png")} alt="favorit" /></button>
-                        <button onClick={doneProduct}><img src= { !done ? require("../Img/plus.png") : require("../Img/done.png")} alt="plus" /></button>
+                        <button onClick={searchFavorit}><img src={ !doneFavorite ? require("../Img/heart.png") : require("../Img/heartdone.png") } alt="favorit" /></button>
+                        <button onClick={searchProduct}><img src= { !doneBusket ? require("../Img/plus.png") : require("../Img/done.png")} alt="plus" /></button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,30 @@
+import React from "react";
+import { ContextApp } from "../App";
+import './Favorite.scss';
+import Cardmain from "../Main/Cardmain";
+
+function Favorit() {
+
+    let { itemsFavorite } = React.useContext(ContextApp);
+
+    return(
+        <>
+
+            <div className='favorite'>
+                <div className="container">
+
+                    <h1>Мои закладки</h1>
+
+                     <div className="container_items">
+
+                        {itemsFavorite.map((item) => <Cardmain inFavorite={true} item = {item} />)}
+
+                    </div>
+                </div>
+            </div>
+        
+        </>
+    )
+}
+
+export default Favorit;
