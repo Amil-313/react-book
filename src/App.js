@@ -6,6 +6,7 @@ import Main from './Main/Main';
 import Basket from './Basket/Basket';
 import React from 'react';
 import Favorit from './Favorit/Favorite';
+import { useState } from 'react';
 
 export let ContextApp = React.createContext({});
 
@@ -19,9 +20,17 @@ let openBasket = () => {setBasket(true)};
 let [itemsBusket, setItemsBusket] = React.useState([]);
 
 let addBasket = async (a) => {
+  let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket');
+if (data.some((item) => (item.id === a.id))) {
+  let {data} = await axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/basket/${a.id}`);
+  setItemsBusket(prev => prev.filter(item => item.id !== data.id));
+} else {
   let {data} = await axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/basket', a);
   setItemsBusket(prev => [...prev, data]);
+}
+console.log(a);
 };
+
 React.useEffect(() => {
   axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket')
   .then((items) => {setItemsBusket(items.data)})
@@ -39,7 +48,7 @@ let addFavorite = async (a) => {
   try {
     let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites');
   
-  if (data.find((item) => (item.id === a.id))) {
+  if (data.some((item) => (item.id === a.id))) {
     axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/favorites/${a.id}`);
   } else {
     axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/favorites', a);
@@ -48,14 +57,28 @@ let addFavorite = async (a) => {
   }
 };
 
-React.useEffect(() => {
-  axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites')
-  .then((items) => {setItemsFavorite(items.data)})
-}, []);
 let updateFavorite = () => {
   axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites')
   .then((items) => {setItemsFavorite(items.data)});
 }
+
+/* ------------------------Main------------------------------ */
+
+let [books, setBooks] = React.useState([]);
+// ____________________Loading______________
+let [loading, setLoading] = useState(true);
+React.useEffect(() => { async function fetchUse() {
+  setLoading(true);
+  let favorited = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites');
+  let mainProduct = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/books');
+
+  setLoading(false);
+  setItemsFavorite(favorited.data);
+  setBooks(mainProduct.data);
+}
+fetchUse();
+
+}, []);
 
 /*--------------------- Search -------------------------*/
 let [searchBooks, setSearchBooks] = React.useState('');
@@ -69,7 +92,7 @@ setSearchBooks(event.target.value);
 
       
 
-        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite}}>
+        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite, books, loading}}>
 
           
             {basket && <Basket 

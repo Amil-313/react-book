@@ -1,7 +1,7 @@
 import React from "react";
 import { ContextApp } from "../App";
 
-function Cardmain({item, inFavorite = false}) {
+function Cardmain({item, inFavorite = false}, loading) {
     
     
     let {addBasket, addFavorite} = React.useContext(ContextApp);

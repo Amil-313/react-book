@@ -11,8 +11,11 @@ function Busket({closeBasket, itemsBusket, removeBasket}) {
                             <h2>Корзина</h2>
                             <img onClick={closeBasket} className='cansel' src={ require("./Image/censel.png")} alt="Censel" />
                         </div>
-                        <div className="busket_product">
+                        
 
+                        {itemsBusket.length > 0 ? 
+                        <>
+                            <div className="busket_product">
                         {itemsBusket.map((item) => (
                             <div className="product_add">
                                 <img className='product_img' src= {item.img} alt="Book" />
@@ -22,9 +25,7 @@ function Busket({closeBasket, itemsBusket, removeBasket}) {
                                 </div>
                                 <img onClick={() => removeBasket(item.id)} className='cansel' src= { require("./Image/censel.png")} alt="Censel" />
                             </div>
-))}
-
-
+                        ))}
                         </div>
                         <div className="busket_sum">
                             <div>
@@ -38,6 +39,9 @@ function Busket({closeBasket, itemsBusket, removeBasket}) {
                             <img src= { require("./Image/rightarrow.png")} alt="Arrow" />
                             </button>
                         </div>
+                        </> : <h1>Корзина пуста</h1>
+                        }
+                        
                     </div>
                 </div>
         </>

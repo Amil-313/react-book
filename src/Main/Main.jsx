@@ -1,20 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import './Main.scss';
 import Cardmain from './Cardmain';
 import { ContextApp } from '../App';
+import Loading from './Loading';
 
 
 function Main() {
 
-let {searchBooks} = React.useContext(ContextApp);
-
-let [books, setBooks] = React.useState([])
-    
-        React.useEffect(() => {
-            axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/books')
-            .then((books) => {setBooks(books.data)})},
-         []);
+let {searchBooks, books, loading} = React.useContext(ContextApp);
         
     return(
         <>
@@ -25,7 +18,8 @@ let [books, setBooks] = React.useState([])
 
                     <div className="container_items">
 
-                        {books.filter((book) => book.name.toLowerCase().includes(searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} item = {book} />)}
+                        {loading ? [...Array(4)].map(() => <Loading className='loading' />) : books.filter((book) => book.name.toLowerCase().includes(searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} item = {book} />)}
+                        
 
                     </div>
                 </div>
