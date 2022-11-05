@@ -37,15 +37,16 @@
 .product_add {
     display: flex;
     align-items: center;
-    width: 100%;
-    padding: 5px;
+    max-height: 100px;
+    flex: 1;
+    padding: 3px;
     margin: 3px 0;
     border: 1px solid white;
     border-radius: 10px;
 
     .product_img {
-        width: 80px;
-        height: 120px;
+        width: 60px;
+        height: 90px;
         border-radius: 5px;
     }
     div {
@@ -80,16 +81,24 @@
     }
     
     button {
-        background: none;
+        background: rgb(14, 129, 14);
         border: 1px solid white;
         border-radius: 10px;
         margin: 10px;
         padding: 20px;
         position: relative;
         transition: 0.2s;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:disabled {
+            background-color: rgb(65, 64, 64);
+            cursor: default;
+
+        }
 
         &:hover {
-            background-color: rgb(75, 75, 75);
+            background-color: rgb(33, 150, 38);
             transform: scale(1.05);
 
             img {

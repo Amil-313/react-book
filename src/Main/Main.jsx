@@ -18,7 +18,7 @@ let {searchBooks, books, loading} = React.useContext(ContextApp);
 
                     <div className="container_items">
 
-                        {loading ? [...Array(4)].map(() => <Loading className='loading' />) : books.filter((book) => book.name.toLowerCase().includes(searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} item = {book} />)}
+                        {loading ? [...Array(8)].map(() => <Loading className='loading' />) : books.filter((book) => book.name.toLowerCase().includes(searchBooks.toLowerCase())).map((book, index) => <Cardmain key={index} item = {book} />)}
                         
 
                     </div>

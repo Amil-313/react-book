@@ -65,3 +65,24 @@
 .loading {
     margin: 15px 35px;
 }
+
+.absence {
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    img {
+        margin-top: 15px;
+        width: 70px;
+        height: 70px;
+        margin: 0 auto;
+    }
+
+    button {
+        margin-top: 15px;
+        background-color: black;
+        border-radius: 10px;
+        padding: 10px;
+    }
+}

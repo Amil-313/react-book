@@ -28,7 +28,6 @@ if (data.some((item) => (item.id === a.id))) {
   let {data} = await axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/basket', a);
   setItemsBusket(prev => [...prev, data]);
 }
-console.log(a);
 };
 
 React.useEffect(() => {
@@ -92,13 +91,13 @@ setSearchBooks(event.target.value);
 
       
 
-        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite, books, loading}}>
+        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite, books, loading, closeBasket}}>
 
           
             {basket && <Basket 
-            itemsBusket={itemsBusket} 
-            closeBasket={closeBasket}
+            itemsBusket={itemsBusket}
             removeBasket={removeBasket}
+            setItemsBusket={setItemsBusket}
             />}
             <Header 
             openBasket={openBasket}
