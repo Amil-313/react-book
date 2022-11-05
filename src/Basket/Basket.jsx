@@ -62,7 +62,7 @@ function Busket({itemsBusket = [], removeBasket, setItemsBusket}) {
                                                 <p>Налог 5%:</p><span></span><strong>{totalPrice * 0.05} руб.</strong>
                                             </div>
                                             <button disabled={loadBtn} onClick={sendOrder}>
-                                                <strong> Оформить заказ </strong>
+                                                Оформить заказ
                                                 <img src= { require("./Image/rightarrow.png")} alt="Arrow" />
                                             </button>
                                         </div>

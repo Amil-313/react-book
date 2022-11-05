@@ -1,7 +1,11 @@
-.favorite {
+.orders {
     background-color: rgb(34, 34, 34);
     .container_items {
         display: flex;
         flex-wrap: wrap;
     }
+}
+
+.loadingOrders {
+    margin: 15px 23px;
 }

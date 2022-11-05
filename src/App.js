@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import axios from 'axios';
 import Header from './Header/Header';
 import Main from './Main/Main';
@@ -7,6 +7,7 @@ import Basket from './Basket/Basket';
 import React from 'react';
 import Favorit from './Favorit/Favorite';
 import { useState } from 'react';
+import Orders from './Orders/Orders';
 
 export let ContextApp = React.createContext({});
 
@@ -89,7 +90,7 @@ setSearchBooks(event.target.value);
   return (
     <>
 
-      
+      <div className="App">
 
         <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite, books, loading, closeBasket}}>
 
@@ -110,9 +111,12 @@ setSearchBooks(event.target.value);
           
             <Route path='/favorite' element={ <Favorit /> } />
 
+            <Route path='/orders' element={ <Orders /> } />
+
           </Routes>
         </ContextApp.Provider>
 
+      </div>
       
     </>
   );

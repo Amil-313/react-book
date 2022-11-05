@@ -82,6 +82,7 @@
     
     button {
         background: rgb(14, 129, 14);
+        background-color: rgb(14, 129, 14);
         border: 1px solid white;
         border-radius: 10px;
         margin: 10px;
@@ -104,6 +105,7 @@
             img {
                 right: 10px;
                 transition: 0.2s;
+                background-color: rgb(33, 150, 38);
             }
         }
 
@@ -111,6 +113,7 @@
             position: absolute;
             right: 15px;
             top: 15px;
+            background-color: rgb(14, 129, 14);
         }
     }
 }

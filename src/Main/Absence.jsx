@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ContextApp } from '../App';
 
 
@@ -12,7 +13,7 @@ let {closeBasket} = React.useContext(ContextApp);
             <div className="absence">
                 <h2>{tittle}</h2>
                 <img src={require('../Img/box.png')} alt="" />
-                <button onClick={closeBasket}>Вернуться назад</button>
+                <Link to='/'><button onClick={closeBasket}>Вернуться назад</button></Link>
             </div>
         </>
     )

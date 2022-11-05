@@ -29,7 +29,7 @@ function Header({openBasket, searchChange, setSearchBooks}) {
                             </div>
                             <img onClick={openBasket} src={require("../Img/basket.png")} alt="basket" />
                             <Link to='/favorite'> <img onClick={updateFavorite} src={require("../Img/heart.png")} alt="favorit" /> </Link>
-                            <img src={require("../Img/profil.png")} alt="profil" />
+                            <Link to='/orders'><img src={require("../Img/profil.png")} alt="profil" /></Link>
                         </nav>
 
                     </div>

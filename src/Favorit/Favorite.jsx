@@ -2,6 +2,7 @@ import React from "react";
 import { ContextApp } from "../App";
 import './Favorite.scss';
 import Cardmain from "../Main/Cardmain";
+import Absence from "../Main/Absence";
 
 function Favorit() {
 
@@ -17,7 +18,10 @@ function Favorit() {
 
                      <div className="container_items">
 
-                        {itemsFavorite.map((item) => <Cardmain inFavorite={true} item = {item} />)}
+                        { itemsFavorite.lenght > 0 ?
+                        itemsFavorite.map((item) => <Cardmain inFavorite={true} item = {item} />) :
+                        <Absence tittle={"Нет избранных товаров..."} />
+                    }
 
                     </div>
                 </div>
