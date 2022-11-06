@@ -4,6 +4,9 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.664);
     transition: all 1s;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
 
     .basket{
         display: flex;
@@ -14,24 +17,35 @@
         height: 100%;
         background-color: rgb(26, 25, 25);
         padding: 10px;
-        
-        .busket_tittle {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 10px;
-            padding: 10px 10px;
-            border-bottom: 1px solid white;
-        }
-        
-        .busket_product {
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-            flex: 1;
-            overflow: auto;
-        }
+        transform: translateX(100%);
+        transition: 0.3s ease-in-out;
     }
 
+}
+
+.back_non {
+    visibility: visible;
+    opacity: 1;
+
+    .basket {
+        transform: translateX(0);
+    }
+}
+
+.busket_tittle {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px;
+    padding: 10px 10px;
+    border-bottom: 1px solid white;
+}
+
+.busket_product {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    flex: 1;
+    overflow: auto;
 }
 
 .product_add {
@@ -44,12 +58,18 @@
     border: 1px solid white;
     border-radius: 10px;
 
+    img {
+        width: 30px;
+        height: auto;
+    }
+
     .product_img {
         width: 60px;
-        height: 90px;
+        height: auto;
         border-radius: 5px;
     }
     div {
+        max-width: 175px;
         width: 100%;
         margin: 0 10px;
         

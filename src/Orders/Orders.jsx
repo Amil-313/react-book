@@ -30,9 +30,9 @@ function Orders() {
 
                     <div className="container_items">
 
-                        {loadingOrder ? [...Array(8)].map((item) =>
-                         <Loading className="loadingOrders" />) : 
-                         orders.length > 0 ? orders.map((item) => <Order item={item} /> ) : <Absence tittle={"Заказов не было..."} />
+                        {loadingOrder ? [...Array(8)].map((i) =>
+                         <Loading key={i} className="loadingOrders" />) : 
+                         orders.length > 0 ? orders.map((item) => <Order key={item.parId} item={item} /> ) : <Absence tittle={"Заказов не было..."} />
                          }
 
                     </div>

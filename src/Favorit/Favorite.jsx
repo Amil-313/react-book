@@ -19,7 +19,7 @@ function Favorit() {
                      <div className="container_items">
 
                         { itemsFavorite.length > 0 ?
-                        itemsFavorite.map((item) => <Cardmain item = {item} />) :
+                        itemsFavorite.map((item) => <Cardmain key={item.parId} item = {item} />) :
                         <Absence tittle={"Нет избранных товаров..."} />
                     }
 

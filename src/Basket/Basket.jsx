@@ -6,7 +6,8 @@ import Absence from '../Main/Absence';
 
 function Busket({ removeBasket, setItemsBusket}) {
 
-    let {closeBasket, itemsBusket} = React.useContext(ContextApp);
+    let {closeBasket, itemsBusket, basket} = React.useContext(ContextApp);
+
     let [orderComplete, setOrderComplete] = React.useState(false);
     let [numberOrder, setNumberOrder] = React.useState([]);
     let [loadBtn, setLoadBtn] = React.useState(false);
@@ -32,7 +33,7 @@ function Busket({ removeBasket, setItemsBusket}) {
 
     return(
         <>
-                <div className='back_basket'>
+                <div className={`back_basket ${basket ? 'back_non' : ''}`}>
                     <div className='basket'>
                         <div className="busket_tittle">
                             <h2>Корзина</h2>
@@ -44,7 +45,7 @@ function Busket({ removeBasket, setItemsBusket}) {
                                     <>
                                         <div className="busket_product">
                                             {itemsBusket.map((item) => (
-                                                <div className="product_add">
+                                                <div key={item.parId} className="product_add">
                                                     <img className='product_img' src= {item.img} alt="Book" />
                                                     <div>
                                                         <p>{item.name}</p>

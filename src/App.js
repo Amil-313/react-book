@@ -58,7 +58,6 @@ let addFavorite = async (a) => {
     let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites');
     let productFavorite = data.find((item) => (item.parId === a.parId));
 
-    console.log(productFavorite);
     if (productFavorite) {
       axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/favorites/${productFavorite.id}`);
   } else {
@@ -118,13 +117,22 @@ setSearchBooks(event.target.value);
 
       <div className="App">
 
-        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, itemsBusket, updateFavorite, books, loading, closeBasket}}>
+        <ContextApp.Provider value={{
+              addBasket,
+              addFavorite,
+              searchBooks,
+              itemsFavorite,
+              itemsBusket, 
+              updateFavorite, 
+              books, loading, 
+              closeBasket,
+              basket
+              }}>
 
-          
-            {basket && <Basket 
+            <Basket 
             removeBasket={removeBasket}
             setItemsBusket={setItemsBusket}
-            />}
+            />
             <Header 
             openBasket={openBasket}
             setSearchBooks={setSearchBooks}
