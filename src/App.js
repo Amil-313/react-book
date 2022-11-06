@@ -21,24 +21,33 @@ let openBasket = () => {setBasket(true)};
 let [itemsBusket, setItemsBusket] = React.useState([]);
 
 let addBasket = async (a) => {
-  let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket');
-if (data.some((item) => (item.id === a.id))) {
-  let {data} = await axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/basket/${a.id}`);
-  setItemsBusket(prev => prev.filter(item => item.id !== data.id));
-} else {
-  let {data} = await axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/basket', a);
-  setItemsBusket(prev => [...prev, data]);
-}
+ try {
+  let productBusket = itemsBusket.find((item) => (item.parId === a.parId));
+
+  if (productBusket) {
+    setItemsBusket(prev => prev.filter(item => item.parId !== a.parId));
+    await axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/basket/${productBusket.id}`);
+  } else {
+    setItemsBusket(prev => [...prev, a]);
+    await axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/basket', a);
+    let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket');
+    setItemsBusket(data);
+
+  }
+ } catch (error) {
+  alert("Ошибка при добавлении в карзуину...");
+  console.error(error);
+ }
 };
 
-React.useEffect(() => {
-  axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket')
-  .then((items) => {setItemsBusket(items.data)})
-}, []);
-
-let removeBasket = async (id) => {
-  let {data} = await axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/basket/${id}`);
-  setItemsBusket(prev => prev.filter(item => item.id !== data.id));
+let removeBasket = async (itemProduct) => {
+  try {
+    setItemsBusket(prev => prev.filter(item => item.id !== itemProduct.id));
+    await axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/basket/${itemProduct.id}`);
+  } catch (error) {
+    alert("Ошибка при удалении из корзины...");
+    console.error(error);
+  }
 }
 
 /* ------------------------Favorite--------------------------- */
@@ -47,19 +56,27 @@ let [itemsFavorite, setItemsFavorite] = React.useState([]);
 let addFavorite = async (a) => {
   try {
     let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites');
-  
-  if (data.some((item) => (item.id === a.id))) {
-    axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/favorites/${a.id}`);
+    let productFavorite = data.find((item) => (item.parId === a.parId));
+
+    console.log(productFavorite);
+    if (productFavorite) {
+      axios.delete(`https://6353f42dccce2f8c02000b84.mockapi.io/favorites/${productFavorite.id}`);
   } else {
     axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/favorites', a);
   } } catch (error) {
     alert("Попробуйте ещё раз...");
+    console.error(error);
   }
 };
 
 let updateFavorite = () => {
-  axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites')
+  try {
+    axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites')
   .then((items) => {setItemsFavorite(items.data)});
+  } catch (error) {
+    alert("Ошибка при получении данных избранных товаров...");
+    console.error(error);
+  }
 }
 
 /* ------------------------Main------------------------------ */
@@ -68,13 +85,22 @@ let [books, setBooks] = React.useState([]);
 // ____________________Loading______________
 let [loading, setLoading] = useState(true);
 React.useEffect(() => { async function fetchUse() {
-  setLoading(true);
-  let favorited = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites');
-  let mainProduct = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/books');
+  try {
+  let [favorited, mainProduct, busket] = await Promise.all([
+    axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/favorites'),
+    axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/books'),
+    axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket')
+  ]);
 
   setLoading(false);
+  setItemsBusket(busket.data);
   setItemsFavorite(favorited.data);
   setBooks(mainProduct.data);
+
+  } catch (error) {
+    alert("Ошибка при получении данных...");
+    console.error(error);
+  }
 }
 fetchUse();
 
@@ -92,11 +118,10 @@ setSearchBooks(event.target.value);
 
       <div className="App">
 
-        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, updateFavorite, books, loading, closeBasket}}>
+        <ContextApp.Provider value={{addBasket, addFavorite, searchBooks, itemsFavorite, itemsBusket, updateFavorite, books, loading, closeBasket}}>
 
           
             {basket && <Basket 
-            itemsBusket={itemsBusket}
             removeBasket={removeBasket}
             setItemsBusket={setItemsBusket}
             />}

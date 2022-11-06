@@ -4,9 +4,9 @@ import { ContextApp } from '../App';
 import './Basket.scss';
 import Absence from '../Main/Absence';
 
-function Busket({itemsBusket = [], removeBasket, setItemsBusket}) {
+function Busket({ removeBasket, setItemsBusket}) {
 
-    let {closeBasket} = React.useContext(ContextApp);
+    let {closeBasket, itemsBusket} = React.useContext(ContextApp);
     let [orderComplete, setOrderComplete] = React.useState(false);
     let [numberOrder, setNumberOrder] = React.useState([]);
     let [loadBtn, setLoadBtn] = React.useState(false);
@@ -50,7 +50,7 @@ function Busket({itemsBusket = [], removeBasket, setItemsBusket}) {
                                                         <p>{item.name}</p>
                                                         <strong>{item.price} руб.</strong>
                                                     </div>
-                                                    <img onClick={() => removeBasket(item.id)} className='cansel' src= { require("./Image/censel.png")} alt="Censel" />
+                                                    <img onClick={() => removeBasket(item)} className='cansel' src= { require("./Image/censel.png")} alt="Censel" />
                                                 </div>
                                             ))}
                                         </div>

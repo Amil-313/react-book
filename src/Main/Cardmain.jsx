@@ -1,22 +1,24 @@
 import React from "react";
 import { ContextApp } from "../App";
 
-function Cardmain({item, inFavorite = false}, loading) {
+function Cardmain({item}) {
     
     
-    let {addBasket, addFavorite} = React.useContext(ContextApp);
+    let {addBasket, addFavorite, itemsFavorite, itemsBusket} = React.useContext(ContextApp);
     
-    let [doneBusket, setDoneBusket] = React.useState(false);
+    let [doneBusket, setDoneBusket] = React.useState(itemsBusket.some((items) => items.parId === item.parId) ? true : false);
     let searchProduct = () => {
         addBasket(item);
         setDoneBusket(!doneBusket)
     };
 
-    let [doneFavorite, setDoneFavorite] = React.useState(inFavorite);
+    let [doneFavorite, setDoneFavorite] = React.useState(itemsFavorite.some((items) => items.parId === item.parId) ? true : false);
     let searchFavorit = () => {
         addFavorite(item);
         setDoneFavorite(!doneFavorite);
     };
+
+    /* itemsFavorite.some((items) => items.parId === item.parId) && setDoneBusket(false); */
 
     return(
         <>
@@ -30,6 +32,7 @@ function Cardmain({item, inFavorite = false}, loading) {
                     </div>
                     <div className="card_btn">
                         <button onClick={searchFavorit}><img src={ !doneFavorite ? require("../Img/heart.png") : require("../Img/heartdone.png") } alt="favorit" /></button>
+                        
                         <button onClick={searchProduct}><img src= { !doneBusket ? require("../Img/plus.png") : require("../Img/done.png")} alt="plus" /></button>
                     </div>
                 </div>
