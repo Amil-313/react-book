@@ -32,8 +32,8 @@ let addBasket = async (a) => {
     await axios.post('https://6353f42dccce2f8c02000b84.mockapi.io/basket', a);
     let {data} = await axios.get('https://6353f42dccce2f8c02000b84.mockapi.io/basket');
     setItemsBusket(data);
-
   }
+  
  } catch (error) {
   alert("Ошибка при добавлении в карзуину...");
   console.error(error);
